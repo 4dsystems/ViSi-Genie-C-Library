@@ -1,0 +1,10 @@
+visi_genie_file_access.c:11:6:genieFileBegin	16	static
+visi_genie_file_access.c:16:6:genieFileAccessIsReady	8	static
+visi_genie_file_access.c:20:6:genieFileDir	32	static
+visi_genie_file_access.c:34:6:genieFileRead	32	static
+visi_genie_file_access.c:48:6:genieFileWriteBytes	40	static
+visi_genie_file_access.c:64:6:genieFileWriteStr	32	static
+visi_genie_file_access.c:80:6:genieFileAppendBytes	40	static
+visi_genie_file_access.c:96:6:genieFileAppendStr	32	static
+visi_genie_file_access.c:112:6:genieFileErase	32	static
+visi_genie_file_access.c:126:6:genieFileSize	32	static

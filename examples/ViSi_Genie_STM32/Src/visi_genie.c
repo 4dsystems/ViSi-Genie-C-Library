@@ -1,9 +1,50 @@
-/*
- * visi_genie_beta.c
+/////////////////////////// GenieC 21/07/2020 //////////////////////////////
+//
+//      Library to utilize the 4D Systems Genie interface to displays
+//      that have been created using the Visi-Genie creator platform.
+//      This is intended to be used a generic library for platforms
+//      supporting the C programming language.
+//
+//		Note that this library will require additional setup for user's 
+//      choice of microcontroller
+//
+//      Improvements/Updates by (based on geneArduino library)
+//		  4D Systems Engineering, July 2020, www.4dsystems.com.au
+//        4D Systems Engineering, January 2016, www.4dsystems.com.au
+//        4D Systems Engineering, October 2015, www.4dsystems.com.au
+//        4D Systems Engineering, September 2015, www.4dsystems.com.au
+//        4D Systems Engineering, August 2015, www.4dsystems.com.au
+//        4D Systems Engineering, May 2015, www.4dsystems.com.au
+//        Matt Jenkins, March 2015, www.majenko.com
+//        Clinton Keith, January 2015, www.clintonkeith.com
+//        4D Systems Engineering, July 2014, www.4dsystems.com.au
+//        Clinton Keith, March 2014, www.clintonkeith.com
+//        Clinton Keith, January 2014, www.clintonkeith.com
+//        4D Systems Engineering, January 2014, www.4dsystems.com.au
+//        4D Systems Engineering, September 2013, www.4dsystems.com.au
+//      Written by
+//        Rob Gray (GRAYnomad), June 2013, www.robgray.com
+//      Based on code by
+//        Gordon Henderson, February 2013, <projects@drogon.net>
+//
+//      Copyright (c) 2012-2020 4D Systems Pty Ltd, Sydney, Australia
+/*********************************************************************
+ * This file is part of GenieC:
+ *    GenieC is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Lesser General Public License as
+ *    published by the Free Software Foundation, either version 3 of the
+ *    License, or (at your option) any later version.
  *
- *  Created on: Sep 16, 2019
- *      Author: cruzj
- */
+ *    GenieC is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Lesser General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Lesser General Public
+ *    License along with GenieC.
+ *    If not, see <http://www.gnu.org/licenses/>.
+ *********************************************************************/
+
 
 #include  "visi_genie.h"
 
@@ -88,6 +129,28 @@ uint16_t genieWriteObject(uint16_t object, uint16_t index, uint16_t data) {
     displayDetectTimer = millis() + DISPLAY_TIMEOUT + 10000; //manual disconnect
     return -1; // timeout
 
+}
+
+uint16_t genieWriteShortToIntLedDigits (uint16_t index, int16_t data) {
+    return genieWriteObject(GENIE_OBJ_ILED_DIGITS_L, index, data);
+}
+
+uint16_t genieWriteFloatToIntLedDigits (uint16_t index, float data) {
+    FloatLongFrame frame;
+    frame.floatValue = data;
+    uint16_t retval;
+    retval = genieWriteObject(GENIE_OBJ_ILED_DIGITS_H, index, frame.wordValue[1]);
+    if (retval == 1) return retval;
+    return genieWriteObject(GENIE_OBJ_ILED_DIGITS_L, index, frame.wordValue[0]);
+}
+
+uint16_t genieWriteLongToIntLedDigits (uint16_t index, int32_t data) {
+    FloatLongFrame frame;
+    frame.longValue = data;
+    uint16_t retval;
+    retval = genieWriteObject(GENIE_OBJ_ILED_DIGITS_H, index, frame.wordValue[1]);
+    if (retval == 1) return retval;
+    return genieWriteObject(GENIE_OBJ_ILED_DIGITS_L, index, frame.wordValue[0]);
 }
 
 uint8_t genieWriteContrast(uint16_t value) {

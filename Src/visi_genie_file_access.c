@@ -1,10 +1,3 @@
-/*
- * visi_genie_file_access.c
- *
- *  Created on: Sep 13, 2019
- *      Author: cruzj
- */
-
 #include "visi_genie_file_access.h"
 
 

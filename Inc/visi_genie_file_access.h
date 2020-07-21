@@ -1,20 +1,8 @@
-/*
- * visi_genie_file_access.h
- *
- *  Created on: Sep 13, 2019
- *      Author: cruzj
- */
-
-
 #ifndef __VISI_GENIE_FILE_ACCESS_H__
 #define __VISI_GENIE_FILE_ACCESS_H__
 
-//#define GENIE_BETA
-
-#ifdef GENIE_BETA
-#include "visi_genie_beta.h"
-#else
-#include "visi_genie.h"
+#ifdef __cplusplus
+extern "C" {
 #endif
 
 #define GENIEM_FILE_CMD_BUF_SIZE	255
@@ -43,5 +31,9 @@ void genieFileAppendStr(char * filename, char * str);
 void genieFileAppendBytes(char * filename, uint8_t * data, uint8_t count);
 void genieFileErase(char * filename);
 void genieFileSize(char * filename);
+
+#ifdef __cplusplus
+} // extern C
+#endif
 
 #endif // __VISI_GENIE_FILE_ACCESS_H__

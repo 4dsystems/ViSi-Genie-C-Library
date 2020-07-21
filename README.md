@@ -11,6 +11,20 @@ This library provides high level functions for host controllers programmed in th
 Workshop4 PRO adds additional features to ViSi-Genie, allowing the User to write 4DGL code which can be executed at will from ViSi-Genie, enabling many advanced features not previously possible.
 Please refer to the 4D Systems website, namingly the Workshop 4 Product Page, for documentation regarding Workshop 4, and its environments.
 
+## Setup Instructions
+The main library requires a couple of functions to be setup.
+
+- unsigned long millis(void);    
+    - returns the system time in milliseconds
+- uint16_t genieGetByteCount(void);
+    - returns the number of bytes present in the UART RX buffer
+- uint8_t genieGetByte(void);
+    - returns the next byte and take it out of the buffer
+- uint8_t geniePeekByte(void);
+    - returns the next byte and retain the current buffer    
+- void geniePutByte(uint8_t);
+    - sends a byte to the display module
+
 ## Example Demos
 
 Inside the library are example demos for different Platforms/IDEs, to assist with getting started on using this library. Inside is also a ViSi-Genie Workshop4 project, which can be used on a range of 4D Systems displays (designed on a gen4-uLCD-32PT however can be changed via Workshop4 menu). It illustrates how to use some of the commands in the library include Read Object, Write Object, Reported Messages, Write Contrast and Write String.
@@ -31,5 +45,4 @@ The demo included with this library was made for the uLCD-32PTU however can easi
 ## Questions/Issues?
 
 Please sign up for our Forum and ask a question there, or submit a Tech Support Ticket from our website.
-Please do NOT post issues on Github, as this is not actively monitored. Please use one of the following:
 http://forum.4dsystems.com.au or http://www.4dsystems.com.au/support

@@ -1,4 +1,4 @@
-/////////////////////////// GenieC 21/07/2020 //////////////////////////////
+/////////////////////////// GenieC 07/08/2020 //////////////////////////////
 //
 //      Library to utilize the 4D Systems Genie interface to displays
 //      that have been created using the Visi-Genie creator platform.
@@ -9,6 +9,7 @@
 //      choice of microcontroller
 //
 //      Improvements/Updates by (based on geneArduino library)
+//		  4D Systems Engineering, August 2020, www.4dsystems.com.au
 //		  4D Systems Engineering, July 2020, www.4dsystems.com.au
 //        4D Systems Engineering, January 2016, www.4dsystems.com.au
 //        4D Systems Engineering, October 2015, www.4dsystems.com.au
@@ -247,6 +248,45 @@ uint16_t genieWriteStrU(uint16_t index, uint16_t *string) {
         }
     }
     if (UserDebuggerHandler != 0) UserDebuggerHandler("Write Unicode String didn't receive any reply\r\n");
+//    displayDetectTimer = millis() + DISPLAY_TIMEOUT + 10000; //manual disconnect
+    return -1; // timeout
+}
+
+uint16_t genieWriteInhLabelDefault(uint16_t index) {
+    return genieWriteObject(GENIE_OBJ_ILABELB, index, -1);  
+}
+
+uint16_t genieWriteInhLabel(uint16_t index, char * string) {
+    if (!displayDetected)
+        return -1;
+    char* p;
+    uint8_t checksum;
+    pendingACK = 1;
+    int len = strlen(string);
+    if (len > 255)
+        return -1;
+    geniePutByte(GENIE_WRITE_INH_LABEL);
+    checksum = GENIE_WRITE_INH_LABEL;
+    geniePutByte(index);
+    checksum ^= index;
+    geniePutByte((unsigned char)len);
+    checksum ^= len;
+    for (p = string; *p; ++p) {
+        geniePutByte(*p);
+        checksum ^= *p;
+    }
+    geniePutByte(checksum);
+    uint32_t timeout_write = millis();
+    while (millis() - timeout_write <= GENIE_CMD_TIMEOUT) {
+        uint8_t command_return = genieDoEvents();
+        if (command_return == GENIE_ACK) {
+            return 1;
+        }
+        if (command_return == GENIE_NAK) {
+            return 0;
+        }
+    }
+    if (UserDebuggerHandler != 0) UserDebuggerHandler("Write String didn't receive any reply\r\n");
 //    displayDetectTimer = millis() + DISPLAY_TIMEOUT + 10000; //manual disconnect
     return -1; // timeout
 }

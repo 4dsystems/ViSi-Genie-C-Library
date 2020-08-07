@@ -1,4 +1,4 @@
-/////////////////////////// GenieC 21/07/2020 //////////////////////////////
+/////////////////////////// GenieC 07/08/2020 //////////////////////////////
 //
 //      Library to utilize the 4D Systems Genie interface to displays
 //      that have been created using the Visi-Genie creator platform.
@@ -9,6 +9,7 @@
 //      choice of microcontroller
 //
 //      Improvements/Updates by (based on geneArduino library)
+//		  4D Systems Engineering, August 2020, www.4dsystems.com.au
 //		  4D Systems Engineering, July 2020, www.4dsystems.com.au
 //        4D Systems Engineering, January 2016, www.4dsystems.com.au
 //        4D Systems Engineering, October 2015, www.4dsystems.com.au
@@ -79,7 +80,7 @@ extern "C" {
 
 
 // Based on Arduino Library v1.4.5 [04-08-2017]
-#define GENIE_VERSION		"v1.0.1 - 21-07-2020" // DD-MM-YYYY
+#define GENIE_VERSION		"v1.0.2 - 07-08-2020" // DD-MM-YYYY
 
 // Do not modify current values. Recommended settings.
 #define DISPLAY_TIMEOUT         2000
@@ -108,7 +109,8 @@ typedef enum {
 	GENIEM_WRITE_BYTES,
 	GENIEM_WRITE_DBYTES,
 	GENIEM_REPORT_BYTES,
-	GENIEM_REPORT_DBYTES
+	GENIEM_REPORT_DBYTES,
+	GENIE_WRITE_INH_LABEL
 } GenieCommand;
 
 typedef enum {
@@ -153,7 +155,7 @@ typedef enum {
 	GENIE_OBJ_ILED_DIGITS_H,
 	GENIE_OBJ_IANGULAR_METER,
 	GENIE_OBJ_IGAUGE,
-	GENIE_OBJ_ILABEL,
+	GENIE_OBJ_ILABELB,
 	GENIE_OBJ_IUSER_GAUGE,
 	GENIE_OBJ_IMEDIA_GAUGE,
 	GENIE_OBJ_IMEDIA_THERMOMETER,
@@ -276,6 +278,8 @@ uint16_t    genieWriteLongToIntLedDigits(uint16_t index, int32_t data);
 uint8_t     genieWriteContrast(uint16_t value);
 uint16_t    genieWriteStr(uint16_t index, char *string);
 uint16_t    genieWriteStrU(uint16_t index, uint16_t *string);
+uint16_t	genieWriteInhLabelDefault(uint16_t index);
+uint16_t    genieWriteInhLabel(uint16_t index, char *string);
 bool        genieEventIs(genieFrame * e, uint8_t cmd, uint8_t object, uint8_t index);
 uint16_t    genieGetEventData(genieFrame * e);
 bool        genieDequeueEvent(genieFrame * buff);

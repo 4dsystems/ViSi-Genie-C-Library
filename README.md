@@ -31,9 +31,12 @@ Inside the library are example demos for different Platforms/IDEs, to assist wit
 
 ## Tested with
 
-This library has been tested on the STM32F030, however could easily be adapted (or may work as-is) to/with other MCU's running C 
+This library can be easily adapted (or may work as-is) to/with many MCU's running C.
 
 If you've tested this library with other development platforms, please don't hesitate to notify us so we can update the compability list.
+
+- This library has been tested on the STM32F030.
+- Customer tested using Infineon / Cypress CY8C6245AZI-S3D72 MCU with ModusToolbox Eclipse environment.
 
 Any problems discovered with this library, please contact technical support from the 4D Sytems website so fixes can be put in place, or seek support from our forum.
 
